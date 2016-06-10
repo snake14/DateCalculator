@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link rel='stylesheet' href='./css/jquery-ui.min.css'>
+<link rel="stylesheet" href='./css/jquery-ui.css'>
+<link rel="stylesheet" type="text/css" href="./css/DateTimePicker.css" />
+<script src='./js/lib/jquery.js'></script>
+<script src='./js/lib/jquery-ui.min.js'></script>
+<script src='./js/lib/moment.min.js'></script>
+<script src='./js/lib/jquery.min.js'></script>
+<script src='./js/lib/jquery-ui.js'></script>
+<script type="text/javascript" src="./js/DateTimePicker.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#dtBox").DateTimePicker();
+	});
+	
+	function getResponse() {
+        $.ajax({
+            url: '/Date_Calculator/web/calculator/date?sourceDate=' + $("#sourceDateInput").val() + '&dateTimeUnit=' + $("#dateTimeUnit").val() + '&numOfUnits=' + $("#numOfUnits").val(),
+            type: 'GET',
+            dataType: 'text',
+            success: function(response){
+                $('#output').text(response);
+            },
+            error: function(response) {
+                alert(response.responseText);
+            }
+        });
+    }
+</script>
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+	<div id='loading'>Please select a starting date</div>
+	<div id='input'>
+		<div id="sourceDate">
+			Start Date: <input id="sourceDateInput" type="text" data-field="date"
+				data-format="yyyy-MM-dd" readonly>
+		</div>
+		<div>
+			<select id="dateTimeUnit">
+  				<option value="Day">Day</option>
+  				<option value="Month">Month</option>
+  				<option value="Year">Year</option>
+			</select>
+		</div>
+		<div>
+			Offset number: <input type="text" id="numOfUnits" width="50">
+		</div>
+		<div>
+			<input type="button" value="Submit" onclick="getResponse()">
+		</div>
+		<div id="dtBox"></div>
+	</div>
+	<div id='output'></div>
+
+</body>
+</html>

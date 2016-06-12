@@ -1,5 +1,10 @@
 package com.jdransom.date.calculator.model;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+
 /**
  * @author JacobR
  *
@@ -42,11 +47,25 @@ public class DateTimeUnitType extends TypeObject {
 
 	public static final DateTimeUnitType MINUTE = new DateTimeUnitType(MINUTE_ID, MINUTE_LABEL);
 
+	private static Map<Integer, DateTimeUnitType> allTypes = new LinkedHashMap<Integer, DateTimeUnitType>();
+
+	private static Collection<String> allTypeLabels = new LinkedHashSet<String>();
+
 	/**
 	 * @param yearId
 	 * @param yearLabel
 	 */
 	public DateTimeUnitType(Integer typeId, String typeLabel) {
 		super(typeId, typeLabel);
+		allTypes.put(typeId, this);
+		allTypeLabels.add(typeLabel);
+	}
+
+	public static Map<Integer, DateTimeUnitType> getAllTypes() {
+		return allTypes;
+	}
+
+	public static Collection<String> getAllTypeLabels() {
+		return allTypeLabels;
 	}
 }
